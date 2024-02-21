@@ -30,9 +30,13 @@ class Config(dict):
     if filename.suffix == '.json':
       filename.write(json.dumps(dict(self)))
     elif filename.suffix in ('.yml', '.yaml'):
-      import ruamel.yaml as yaml
+      #import ruamel.yaml as yaml
+      from ruamel.yaml import YAML
+      # YAML形式で書き込む場合
+      yaml = YAML(typ='safe', pure=True)  # YAMLインスタンスを作成
       with io.StringIO() as stream:
-        yaml.safe_dump(dict(self), stream)
+        # yaml.safe_dump(dict(self), stream)
+        yaml.dump(dict(self), stream)
         filename.write(stream.getvalue())
     else:
       raise NotImplementedError(filename.suffix)

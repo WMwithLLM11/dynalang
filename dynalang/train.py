@@ -25,6 +25,11 @@ from embodied.core import path
 def main(argv=None):
   from . import agent as agt
 
+  # add sone
+  sys.argv = ['dynalang/train_test.py', '--run.script', 'train', '--logdir', '/home/ssone/000_jupyter/world_model2024/homegrid/logdir', '--use_wandb', 'True', '--task', 'homegrid_task', '--envs.amount', '1', '--seed', '1', '--encoder.mlp_keys', 'token$', '--decoder.mlp_keys', 'token$', '--decoder.vector_dist', 'onehot', '--batch_size', '2', '--batch_length', '256', '--run.train_ratio', '32']
+  print("sys.argv", sys.argv)
+  # end add sone
+  # embodied.Flagsの中でargvが空なら、sys.argv[1:]を使って otherに返す
   parsed, other = embodied.Flags(configs=['defaults']).parse_known(argv)
   config = embodied.Config(agt.Agent.configs['defaults'])
   for name in parsed.configs:
